@@ -3,6 +3,7 @@ name: Slack Notification
 on:
   schedule:
     - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:  # Manually trigger the workflow
 
 jobs:
   notify_slack:
