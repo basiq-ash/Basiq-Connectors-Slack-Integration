@@ -6,13 +6,10 @@ async function notifySlack(message) {
     try {
         await slackClient.chat.postMessage({
             channel: process.env.SLACK_CHANNEL_ID,
-            text: message,
+            text: message,  // Include the `text` argument with the message
         });
-        process.exit(0); // Success
     } catch (error) {
         console.error('Slack Error:', error);
-        process.exit(1); // Error
     }
 }
-
 notifySlack(process.argv[2]); // Pass message as command line argument
