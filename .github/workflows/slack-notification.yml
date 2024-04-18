@@ -24,6 +24,13 @@ jobs:
       - name: Run Node.js script
         run: node index.js
 
+      - name: Wait for server to start
+        run: sleep 10  # Adjust the sleep duration as needed
+
+      - name: Fetch API status
+        run: |
+          curl -i http://localhost:3000/api/status
+
       - name: Notify Slack
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
