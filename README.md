@@ -1,4 +1,4 @@
-# Basiq Dashboard with Slack Integration
+# Basiq Connector Status Outage with Slack Integration
 
 ## Overview
 
