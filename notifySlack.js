@@ -1,16 +1,14 @@
 const { WebClient } = require('@slack/web-api');
+const { fetchAndNotify } = require('./fetchAndNotify'); // Assuming the function is in fetchAndNotify.js
 
 const slackClient = new WebClient(process.env.SLACK_TOKEN);
 
-async function notifySlack(message) {
+async function notifySlack() {
     try {
-        await slackClient.chat.postMessage({
-            channel: process.env.SLACK_CHANNEL_ID,
-            text: message || 'Default message if message is empty', // Include a default message if `message` is empty
-        });
+        await fetchAndNotify(slackClient);
     } catch (error) {
         console.error('Slack Error:', error);
     }
 }
 
-notifySlack(process.argv[2]); // Pass message as command line argument
+notifySlack();
