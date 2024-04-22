@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function fetchAndNotify(slackClient) {
+async function fetchAndNotify(slackClient, notifySlack) {
     try {
         const apiResponse = await axios.get('https://au-api.basiq.io/public/connectors?filter=connector.stage.ne(%27alpha%27),connector.authorization.type.in(%27other%27,%27user%27,%27user-mfa%27,%27user-mfa-intermittent%27,%27token%27)');
         const connectors = apiResponse.data.data;
