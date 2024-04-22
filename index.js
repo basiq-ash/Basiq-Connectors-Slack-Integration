@@ -17,7 +17,8 @@ app.get('/api/status', async (req, res) => {
             console.log(`Connector ID: ${connector.id}, Status: ${connector.status}`);
             // Notify on Slack if a connector is not operational
             if (connector.status !== 'operational') {
-                notifySlack(`:warning: Alert: *${connector.institution.name}* (ID: ${connector.id}) status is *${connector.status}*. :warning:`);
+                const message = `:warning: Alert: *${connector.institution.name}* (ID: ${connector.id}) status is *${connector.status}*. :warning:`;
+                notifySlack(message);
             }
         });
 
