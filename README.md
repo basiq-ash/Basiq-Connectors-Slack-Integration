@@ -19,7 +19,6 @@ This project provides a slack integration for monitoring the status of connector
 
 2. **Install dependencies**:
     ```bash
-    cd basiq-dashboard
     npm install
     ```
 
