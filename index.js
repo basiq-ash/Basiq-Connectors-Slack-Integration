@@ -14,11 +14,16 @@ app.get('/api/status', async (req, res) => {
         const connectors = apiResponse.data.data;
 
         connectors.forEach(connector => {
-            console.log(`Connector ID: ${connector.id}, Status: ${connector.status}`);
-            // Notify on Slack if a connector is not operational
+            console.log(`Connector ID: ${connector.id}, Status: ${connector.status}, Method: ${connector.method}`);
+            // Check method and operational status
             if (connector.status !== 'operational') {
-                const message = `:warning: Alert: *${connector.institution.name}* (ID: ${connector.id}) status is *${connector.status}*. :warning:`;
-                notifySlack(message);
+                if (connector.method === 'web') {
+                    const message = `:globe_with_meridians: *Web Alert*: *${connector.institution.name}* (ID: ${connector.id}) is currently *${connector.status}*. :globe_with_meridians:`;
+                    notifySlack(message);
+                } else if (connector.method === 'open-banking') {
+                    const message = `:bank: *Open-Banking Alert*: *${connector.institution.name}* (ID: ${connector.id}) is currently *${connector.status}*. :bank:`;
+                    notifySlack(message);
+                }
             }
         });
 
