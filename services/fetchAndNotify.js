@@ -7,8 +7,7 @@ async function fetchAndNotify() {
         const connectors = apiResponse.data.data;
         return connectors.filter(connector => ['partial-outage', 'major-outage'].includes(connector.status))
             .map(connector => ({
-                message: `:${connector.method === 'web' ? 'globe_with_meridians' : 'bank'}: *${connector.method.replace('-', ' ').toUpperCase()} Alert*: *${connector.institution.name}* (ID: ${connector.id}) is currently *${connector.status}*. :${connector.method === 'web' ? 'globe_with_meridians' : 'bank'}:`,
-                method: connector.method,
+                message: `:${connector.method === 'web' ? 'globe_with_meridians' : 'bank'}: *${connector.method.replace('-', ' ').toUpperCase()} Alert*: *${connector.institution.name}* (ID: ${connector.id}) is currently *${connector.status}*. :${connector.method === 'web' ? 'globe_with_meridians' : 'bank'}:`
             }));
     } catch (error) {
         console.error('Failed to fetch data:', error);
