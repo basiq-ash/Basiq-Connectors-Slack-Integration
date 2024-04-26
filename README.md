@@ -4,10 +4,6 @@
 
 This project provides a slack integration for monitoring the status of connectors from the Basiq API. It includes integration with Slack to send notifications when connectors are not operational. The application is built using Node.js, Express, Axios, and the @slack/web-api package.
 
-## Screenshot From Basiq Dashboard
-
-![Screenshot 2024-04-23 at 10 04 03 AM](https://github.com/basiq-ash/Basiq-Connectors-Slack-Integration/assets/102712545/64d6bccb-528e-46b6-81aa-afd03a823f46)
-
 ## Features
 
 - Fetches connector status from the Basiq API.
@@ -23,6 +19,7 @@ This project provides a slack integration for monitoring the status of connector
 
 2. **Install dependencies**:
     ```bash
+    cd basiq-dashboard
     npm install
     ```
 
