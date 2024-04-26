@@ -35,6 +35,12 @@ jobs:
 
       - name: Curl to trigger status check
         run: curl http://localhost:3000/api/status
+    
+      - name: Notify Slack
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: node services/notifySlack.js
 
       - name: Stop Server
         run: kill $(jobs -p) || true
