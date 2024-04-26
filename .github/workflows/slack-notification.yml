@@ -1,0 +1,41 @@
+name: Slack Notification
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Runs at 1:00 AM UTC every day
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  notify_slack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Server
+        run: npm start &
+        env:
+          PORT: 3000
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+          API_URL: "https://au-api.basiq.io/public/connectors?filter=connector.stage.ne('alpha'),connector.authorization.type.in('other','user','user-mfa','user-mfa-intermittent','token')"
+        # Set all necessary environment variables
+
+      - name: Wait for server to start
+        run: sleep 10  # Adjust the sleep duration as needed
+
+      - name: Curl to trigger status check
+        run: curl http://localhost:3000/api/status
+
+      - name: Stop Server
+        run: kill $(jobs -p) || true
+        # Ensures the background server process is stopped after the test
